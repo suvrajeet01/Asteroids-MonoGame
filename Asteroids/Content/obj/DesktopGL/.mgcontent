@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/ship.png</File>
-    <File>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/shot.png</File>
-    <File>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/asteroid.png</File>
-    <File>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/explosion.png</File>
+    <File>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/ship.png</File>
+    <File>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/shot.png</File>
+    <File>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/asteroid.png</File>
+    <File>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/explosion.png</File>
   </SourceFiles>
 </SourceFileCollection>

@@ -11,7 +11,7 @@ namespace Asteroids
 {
 	class Player
 	{
-		public Texture2D ActiveTexture;
+		public Texture2D ActiveTexture; //make it easier to change the texture for the player
 		public Texture2D PlayerTexture;
 		public Vector2 Position;
 		public Vector2 Velocity;
@@ -20,6 +20,7 @@ namespace Asteroids
 		public float Deceleration;
 		public float Rotation;
 		public float RotationSpeed;
+        public float MaxRotationSpeed;
 		public float RotationAcceleration;
 		public float RotationDecay;
 		public bool Active;
@@ -53,28 +54,35 @@ namespace Asteroids
 
 		public void Initialize(Texture2D texture, Vector2 position, Vector2 Max)
 		{
-			PlayerTexture = texture;
-			ActiveTexture = PlayerTexture;
+			PlayerTexture = texture; 
+			ActiveTexture = PlayerTexture; //set the active texture to playerTexture
 			Position = position;
 			Active = true;
 			Alive = true;
-			Origin = new Vector2(Height / 2, Width / 2);
-			Acceleration = 2;
-			Deceleration = 1.01F;
-			RotationAcceleration = 6F;
-			RotationDecay = 20F;
+			Origin = new Vector2(Height / 2, Width / 2); //set the origin to the center of the texture
+			Acceleration = 2; //speed at which the ship increases in speed
+			Deceleration = 1.01F; //how much speed decays 
+			RotationAcceleration = 6F; //how quickly the rotation speed increases
+            MaxRotationSpeed = 500f; //cap out the rotation speed
+			RotationDecay = 20F; //how quickly rotation comes to a stop
 			MaxX = Max.X;
 			MaxY = Max.Y;
-			Scale = 0.1f;
+			Scale = 0.1f; //multiplier for texture size to determine the size of the player
 		}
 
 
 		public void Update(GameTime gameTime)
 		{
 			Input(Keyboard.GetState(), gameTime);
+            //set roation and position based on velocity and deltaTime since last update
 			float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 			Position += Velocity * deltaTime;
 			Rotation += RotationSpeed * deltaTime;
+            //cap the rotation speed
+            if (RotationSpeed > MaxRotationSpeed) { RotationSpeed = MaxRotationSpeed; }
+            if (RotationSpeed < -MaxRotationSpeed) { RotationSpeed = -MaxRotationSpeed; }
+
+            //loop X and Y when player moves off screen
 			if (Position.X > MaxX) { Position.X = 0; }
 			if (Position.X < 0) { Position.X = MaxX; }
 			if (Position.Y > MaxY) { Position.Y = 0; }
@@ -85,6 +93,8 @@ namespace Asteroids
 		{
 
 			//input
+
+            //Move forward
 			if (Keyboard.IsKeyDown(Keys.W))
 			{
 				//increase speed
@@ -93,6 +103,7 @@ namespace Asteroids
 			}
 			else
 			{
+                //decrease speed if not accelerating forward
 				Velocity.X = (Math.Abs(Velocity.X) <= 0.1) ? 0 : (Velocity.X / Deceleration);
 				Velocity.Y = (Math.Abs(Velocity.Y) <= 0.1) ? 0 : (Velocity.Y / Deceleration);
 			}
@@ -109,18 +120,22 @@ namespace Asteroids
 			}
 			else
 			{
+                //Decrease rotation if not accelerating in either direction
 				RotationSpeed -= (Math.Abs(RotationSpeed) <= RotationDecay) ? RotationSpeed : Math.Sign(RotationSpeed) * RotationDecay;
 			}
-			if (Keyboard.IsKeyDown(Keys.S))
+			
+            //Allow the player to slow down faster manually
+            /*if (Keyboard.IsKeyDown(Keys.S))
 			{
-				//Velocity.X = (Math.Abs(Velocity.X) <= 0.1) ? 0 : (Velocity.X / Deceleration);
-				//Velocity.Y = (Math.Abs(Velocity.Y) <= 0.1) ? 0 : (Velocity.Y / Deceleration);
-			}
+				Velocity.X = (Math.Abs(Velocity.X) <= 0.1) ? 0 : (Velocity.X / Deceleration);
+				Velocity.Y = (Math.Abs(Velocity.Y) <= 0.1) ? 0 : (Velocity.Y / Deceleration);
+			}*/
 			//end input
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
+            //draw an invisible hitbox only visible in wireframe mode for testing hitboxes
 			spriteBatch.Draw(ActiveTexture, 
 				HitBox, 
 				Color.White * 0f);

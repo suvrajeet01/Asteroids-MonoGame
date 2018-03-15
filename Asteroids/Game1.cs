@@ -50,13 +50,10 @@ namespace Asteroids
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
 			player = new Player();
-			shots = new Queue<Shot>();
-			oldState = Keyboard.GetState();
-			wireframe = false;
-			Console.WriteLine("initialized!");
-			Console.WriteLine(wireframe);
+			shots = new Queue<Shot>(); //list of shots
+			oldState = Keyboard.GetState(); //check against newState to detect button presses
+			wireframe = false; //wireframe rendering on or off to check hitboxes
 			base.Initialize();
 		}
 
@@ -68,17 +65,19 @@ namespace Asteroids
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			Max = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-
+            Max = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height); // maximum X,Y for objects
 			Vector2 playerPosition = new Vector2(GraphicsDevice.Viewport.TitleSafeArea.X + GraphicsDevice.Viewport.TitleSafeArea.Width / 2,
-				GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-			ship = Content.Load<Texture2D>("ship");
+				GraphicsDevice.Viewport.TitleSafeArea.Y + GraphicsDevice.Viewport.TitleSafeArea.Height / 2); //Center the player on the screen
+			
+            //load textures
+            ship = Content.Load<Texture2D>("ship");
 			shot = Content.Load<Texture2D>("shot");
 			asteroid = Content.Load<Texture2D>("asteroid");
 			explosion = Content.Load<Texture2D>("explosion");
+
+
 			rock = new Asteroid(asteroid, explosion, new Vector2(100, 100), Max);
 			player.Initialize(ship, playerPosition, Max);
-			// TODO: use this.Content to load your game content here
 		}
 
 		/// <summary>
@@ -97,44 +96,56 @@ namespace Asteroids
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-			newState = Keyboard.GetState();
+			newState = Keyboard.GetState(); //newState to check against oldState
+
+            //Keyboard inputs
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
+
+            //wireframe toggle
 			if (newState.IsKeyDown(Keys.I) && oldState.IsKeyUp(Keys.I))
 			{
 				wireframe = !wireframe;
 				Console.WriteLine("wireframe toggled");
 			}
+            //respawn asteroid for testing
 			if (newState.IsKeyDown(Keys.R) && oldState.IsKeyUp(Keys.R))
 			{
 				rock.Respawn();
 			}
+            //shoot a shot
 			if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space) && shots.Count < 4)
 			{
 				shots.Enqueue(new Shot(shot, player.Position, player.Rotation, Max));
 			}
-			// TODO: Add your update logic here
-			player.Update(gameTime);
-			rock.Update(gameTime);
+
+            //check hitboxes
 			if(rock.HitBox.Intersects(player.HitBox))
 			{
 				rock.Explode();
 			}
 			bool dequeue = false;
-			foreach (Shot shot in shots)
+			
+            //update each shot in Queue of shots
+            foreach (Shot shot in shots)
 			{
 				if (shot.sw.ElapsedMilliseconds > 1000)
 				{
 					dequeue = true;
 				}
 				shot.Update(gameTime);
+                //check shot hitboxes
 				if (rock.HitBox.Contains(shot.Position))
 				{
 					dequeue = true;
 					rock.Explode();
 				}
 			}
-			if (dequeue) shots.Dequeue();
+            if (dequeue) shots.Dequeue(); //
+
+            //update other objects
+            player.Update(gameTime);
+            rock.Update(gameTime);
 			oldState = newState;
 			base.Update(gameTime);
 		}
@@ -145,7 +156,8 @@ namespace Asteroids
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			if(wireframe)
+			//set rendering mode to wireframe if enabled
+            if(wireframe)
 			{
 				GraphicsDevice.Clear(Color.CornflowerBlue);
 				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
@@ -158,12 +170,9 @@ namespace Asteroids
 			else {
 				GraphicsDevice.Clear(Color.Black);
 				spriteBatch.Begin();
-			}
+            }
 
-
-			// TODO: Add your drawing code here
-
-
+            //draw objects by calling their draw functions
 			rock.Draw(spriteBatch);
 			foreach (Shot shot in shots)
 			{

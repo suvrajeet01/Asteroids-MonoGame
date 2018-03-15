@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/ship.png</SourceFile>
-  <SourceTime>2018-03-07T22:58:08.709459-05:00</SourceTime>
-  <DestFile>E:/Users/Theron/source/repos/Asteroids/Asteroids/Content/bin/DesktopGL/ship.xnb</DestFile>
-  <DestTime>2018-03-08T16:12:44.2841516-05:00</DestTime>
+  <SourceFile>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/ship.png</SourceFile>
+  <SourceTime>2018-03-14T16:20:59-04:00</SourceTime>
+  <DestFile>/Users/theron/Projects/theron98/Asteroids-MonoGame.git/Asteroids/Content/bin/DesktopGL/ship.xnb</DestFile>
+  <DestTime>2018-03-14T16:22:42-04:00</DestTime>
   <Importer>TextureImporter</Importer>
-  <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
+  <ImporterTime>2017-03-01T10:06:24-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
-  <ProcessorTime>2017-03-01T10:05:36-05:00</ProcessorTime>
+  <ProcessorTime>2017-03-01T10:06:24-05:00</ProcessorTime>
   <Parameters>
     <Key>ColorKeyColor</Key>
     <Value>255,0,255,255</Value>
