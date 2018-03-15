@@ -1,0 +1,24 @@
+﻿<Properties StartupConfiguration="{2AE553B0-C0DF-44C6-9AFB-3103C0C3B5F1}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Asteroids-MonoGame.git Status">
+    <Files>
+      <File FileName="Asteroids/Game1.cs" Line="159" Column="9" />
+      <File FileName="Asteroids/Player.cs" Line="138" Column="91" />
+      <File FileName="Asteroids/Shot.cs" Line="1" Column="1" />
+      <File FileName="Asteroids/Asteroid.cs" Line="1" Column="1" />
+      <File FileName="Asteroids-MonoGame.git Status" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Asteroids PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="blah" Name="blah">
+      <Items>
+        <StartupItem ItemId="{2AE553B0-C0DF-44C6-9AFB-3103C0C3B5F1}" ItemName="Asteroids" ConfigurationId="Default" />
+      </Items>
+    </MultiItemSolutionRunConfiguration>
+  </MultiItemStartupConfigurations>
+</Properties>
