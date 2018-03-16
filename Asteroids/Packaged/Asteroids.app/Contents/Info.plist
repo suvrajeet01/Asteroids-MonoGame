@@ -6,8 +6,6 @@
 	<string>Asteroids</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.games</string>
 	<key>CFBundleDisplayName</key>
 	<string>Asteroids</string>
 	<key>CFBundleShortVersionString</key>
